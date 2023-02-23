@@ -1,0 +1,271 @@
+using System;
+
+namespace myproject{
+    class Program{
+        static void Main(string[] args){
+            string word, decision, permission = "YES";
+            int number;
+            Console.Write("Please insert a string: ");
+            word=Console.ReadLine();
+        
+            //CHECK IF THE USER WANTS TO  PERFORM ANOTHER ACTION
+            while(permission.Equals("YES")){
+
+                Console.Write("\nWhat action do you want to perfom?");
+                Console.Write("\n1. Convert the string to uppercase");
+                Console.Write("\n2. Reverse the string");
+                Console.Write("\n3. Count the numbers of vowels in string");
+                Console.Write("\n4. Count the numbers of words in string");
+                Console.Write("\n5. Convert the string to title case");
+                Console.Write("\n6. Check if the string is a palindrome");
+                Console.Write("\n7. Find the longest and the shortest word in string");
+                Console.Write("\n8. Find the most frequent word");
+                Console.Write("\n9. Concatenate the string with the \"duck\" word");
+                Console.Write("\n10. Replace the string with the \"duck\" word");
+                Console.Write("\n11. Check if the string contains the \"duck\" word");
+                Console.Write("\n12. Remove all white spaces");
+
+                Console.Write("\n\nDecision: ");
+                decision=Console.ReadLine();
+
+                if(int.TryParse(decision, out number))
+                    number=int.Parse(decision);
+                else number=0;
+                //CHECK IF THE INSERTED NUMBER IS BETWEEN 1 AND 12
+                while(number<=0 || number>=13){
+                    Console.Write("\nYOU INSERTED A WRONG DECISION!");
+                    Console.Write("\nWhat action do you want to perfom?");
+                    Console.Write("\n1. Convert the string to uppercase");
+                    Console.Write("\n2. Reverse the string");
+                    Console.Write("\n3. Count the numbers of vowels in string");
+                    Console.Write("\n4. Count the numbers of words in string");
+                    Console.Write("\n5. Convert the string to title case");
+                    Console.Write("\n6. Check if the string is a palindrome");
+                    Console.Write("\n7. Find the longest and the shortest word in string");
+                    Console.Write("\n8. Find the most frequent word");
+                    Console.Write("\n9. Concatenate the string with the \"duck\" word");
+                    Console.Write("\n10. Replace the string with the \"duck\" word");
+                    Console.Write("\n11. Check if the string contains the \"duck\" word");
+                    Console.Write("\n12. Remove all white spaces");
+
+                    Console.Write("\n\nDecision: ");
+                    decision=Console.ReadLine();
+                    if(int.TryParse(decision, out number))
+                        number=int.Parse(decision);
+                    else number=0;
+                }
+
+                if(number == 1)
+                    Console.Write("\nThe converted string to uppercase is: " + toUpperCase(word));
+                else if(number==2)
+                    Console.Write("\nThe reversed string is: " + reverse(word));
+                else if(number==3)
+                    Console.Write("\nThe number of vowels in string is: " + vowelsNumber(word));
+                else if(number==4)
+                    Console.Write("\nThe number of words in string is: " + wordsNumber(word));
+                else if(number==5)
+                    Console.Write("\nThe converted string to title case is: " + titleCase(word));
+                else if(number==6)
+                    Console.Write(panlindrome(word));
+                else if(number==7)
+                    Console.Write(longestShortestWord(word));
+                else if(number==8)
+                    Console.Write("\nThe most frequent word is: "+theMostFrequentWord(word));
+                else if(number==9)
+                    Console.Write("\nThe concatenated string with \"duck\" word: "+concatenate(word));
+                else if(number==10)
+                    Console.Write("\nThe replaced string with the \"duck\" word: "+replace(word));
+                else if(number==11)
+                    Console.Write("\nThe string contains the \"duck\" word: "+contains(word));
+                else if(number==12)
+                    Console.Write("\nThe string with all removed white spaces: "+removeWhiteSpaces(word));
+                
+                Console.Write("\n\nDo you want to perform an other action? (YES/NO)");
+                Console.Write("\nDecision: ");
+                permission=Console.ReadLine();
+
+                if(permission.Equals("YES")){
+                    Console.Write("\nPlease insert a string: ");
+                    word=Console.ReadLine();
+                }
+                
+                //CHECK IF THE USER INSERTED YES OR NO
+                while(!permission.Equals("YES") && !permission.Equals("NO")){
+                    Console.Write("\n\nYOU INSERTED A WRONG DECISION!");
+                    Console.Write("\nDo you want to perform an other action? (YES/NO)");
+                    Console.Write("\nDecision: ");
+                    permission=Console.ReadLine();
+
+                    if(permission.Equals("YES")){
+                        Console.Write("\nPlease insert a string: ");
+                        word=Console.ReadLine();
+                        
+                    }
+                }
+            }
+        }
+
+        static string toUpperCase(String word){
+            return word.ToUpper();
+        }
+
+        static String reverse(String word){
+            string reverse = "";
+
+            for(int i=word.Length-1; i>=0; i--)
+                reverse+=word[i];
+
+            return reverse;
+        }
+
+        static int vowelsNumber(String word){
+            int counter=0;
+            word=word.ToLower();
+
+            for(int i=0; i<word.Length; i++)
+                if(word[i]=='a' || word[i]=='e' || word[i]=='i' || word[i]=='o' || word[i]=='u')
+                    counter++;
+        
+            return counter;
+        }
+
+         static int wordsNumber(String word){
+            String[] splitedString = word.Split(' ');
+
+            return splitedString.Length;
+        }
+
+        static string titleCase(String word){
+            string titleCase=word[0].ToString().ToUpper();
+
+            for(int i=1; i<word.Length; i++)
+                if(word[i]==' ' && word[i+1]!=' '){
+                    titleCase+=' '+word[i+1].ToString().ToUpper();
+                    i++;
+                }
+                else titleCase+=word[i];            
+
+            return titleCase;   
+        }
+        static string panlindrome(String word){
+            bool panlindromeString=false;
+
+            for(int i=0;i<word.Length/2;i++)
+                if(word[i]==word[word.Length-i-1])
+                    panlindromeString=true;
+                else panlindromeString=false;
+            
+            if(panlindromeString)
+                return "\nThe string is a palindrome";
+            else return "\nThe string isn't a palindrome";
+            
+        }
+
+        static string longestShortestWord(String word){
+            string longest="", shortest="", accumulator="";
+            int counter=0;
+
+            for(int i=0;i<word.Length;i++){
+                if(counter==0){
+                    shortest+=word[i];
+
+                    if(word[i+1]==' ')
+                        counter=1;
+                }
+            }
+
+            for(int i=0;i<word.Length;i++){
+                if(word[i]!=' '){
+                    accumulator+=word[i];
+
+                    if(i<word.Length-1){
+                        if(word[i+1]==' '){
+                            if(accumulator.Length>longest.Length)
+                                longest=accumulator;
+                            else if(accumulator.Length<shortest.Length)
+                                shortest=accumulator;
+                        
+                            accumulator="";
+                        }
+                    }
+                    else{
+                        if(accumulator.Length>longest.Length)
+                            longest=accumulator;
+                         else if(accumulator.Length<shortest.Length)
+                            shortest=accumulator;
+                    }
+                }
+            }
+            return "The longest word in the string is "+ longest + " and the shortest is "+ shortest;
+        }
+
+        static string theMostFrequentWord(String word){
+            String[] splitedString = word.Split(' ');
+            int[] countersArray=new int[splitedString.Length];
+            int k=0, max=0, counter=0, index=0;
+
+            for(int i=0;i<splitedString.Length;i++){
+                if(i<splitedString.Length-1){
+                    for(int j=0;j<splitedString.Length;j++){
+                        if(splitedString[i]==splitedString[j])
+                            counter++;
+                        
+                        if(j==splitedString.Length-1){
+                            countersArray[k]=counter;
+                            k++;
+                            counter=0; 
+                        }                          
+                    }    
+                }
+            
+                else if(i==splitedString.Length-1){
+                    for(int j=0;j<splitedString.Length;j++){
+                        if(splitedString[i]==splitedString[j])
+                            counter++;
+
+                        if(j==splitedString.Length-1){
+                            countersArray[k]=counter;
+                            k++;
+                            counter=0; 
+                            Console.Write("PUS");
+                        }                      
+                    }
+                }
+            }
+
+            for(int i=0;i<countersArray.Length;i++){
+                if(max<countersArray[i])
+                    max=countersArray[i];
+            }
+            
+            for(int i=0;i<countersArray.Length;i++){
+                if(max==countersArray[i])
+                    index=i;
+            }
+            
+            return splitedString[index];
+        }
+
+        static string concatenate(string word){
+            return word+" "+"love";
+        }
+
+        static string replace(string word){
+            return word.Replace(word, "duck");
+        }
+        static bool contains(string word){
+            if(word.Contains("duck"))
+                return true;
+            else return false;
+        }
+
+        static string removeWhiteSpaces(string word){
+            string stringWithoutWhiteSpaces="";
+            for(int i=0;i<word.Length;i++)
+                if(word[i]!=' ')
+                    stringWithoutWhiteSpaces+=word[i];
+            
+            return stringWithoutWhiteSpaces;
+        }
+    }
+}

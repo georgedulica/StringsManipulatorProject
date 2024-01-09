@@ -29,8 +29,14 @@ namespace myproject{
                 decision=Console.ReadLine();
 
                 if(int.TryParse(decision, out number))
-                    number=int.Parse(decision);
-                else number=0;
+                {
+                    number = int.Parse(decision);
+                }
+                else 
+                {
+                    number = 0;
+                }
+
                 //CHECK IF THE INSERTED NUMBER IS BETWEEN 1 AND 12
                 while(number<=0 || number>=13){
                     Console.Write("\nYOU INSERTED A WRONG DECISION!");
@@ -84,13 +90,15 @@ namespace myproject{
                 Console.Write("\nDecision: ");
                 permission=Console.ReadLine();
 
-                if(permission.Equals("YES")){
+                if(permission.Equals("YES"))
+                {
                     Console.Write("\nPlease insert a string: ");
                     word=Console.ReadLine();
                 }
                 
                 //CHECK IF THE USER INSERTED YES OR NO
-                while(!permission.Equals("YES") && !permission.Equals("NO")){
+                while(!permission.Equals("YES") && !permission.Equals("NO"))
+                {
                     Console.Write("\n\nYOU INSERTED A WRONG DECISION!");
                     Console.Write("\nDo you want to perform an other action? (YES/NO)");
                     Console.Write("\nDecision: ");
@@ -105,11 +113,13 @@ namespace myproject{
             }
         }
 
-        static string toUpperCase(String word){
+        static string toUpperCase(String word)
+        {
             return word.ToUpper();
         }
 
-        static String reverse(String word){
+        static String reverse(String word)
+        {
             string reverse = "";
 
             for(int i=word.Length-1; i>=0; i--)
@@ -118,7 +128,8 @@ namespace myproject{
             return reverse;
         }
 
-        static int vowelsNumber(String word){
+        static int vowelsNumber(String word)
+        {
             int counter=0;
             word=word.ToLower();
 
@@ -129,13 +140,15 @@ namespace myproject{
             return counter;
         }
 
-         static int wordsNumber(String word){
-            String[] splitedString = word.Split(' ');
-
+         static int wordsNumber(String word)
+        {
+            string[] splitedString = word.Split(' ');
+            
             return splitedString.Length;
         }
 
-        static string titleCase(String word){
+        static string titleCase(String word)
+        {
             string titleCase=word[0].ToString().ToUpper();
 
             for(int i=1; i<word.Length; i++)
@@ -147,6 +160,7 @@ namespace myproject{
 
             return titleCase;   
         }
+
         static string panlindrome(String word){
             bool panlindromeString=false;
 
@@ -161,7 +175,8 @@ namespace myproject{
             
         }
 
-        static string longestShortestWord(String word){
+        static string longestShortestWord(String word)
+        {
             string longest="", shortest="", accumulator="";
             int counter=0;
 
@@ -199,7 +214,8 @@ namespace myproject{
             return "The longest word in the string is "+ longest + " and the shortest is "+ shortest;
         }
 
-        static string theMostFrequentWord(String word){
+        static string theMostFrequentWord(String word)
+        {
             String[] splitedString = word.Split(' ');
             int[] countersArray=new int[splitedString.Length];
             int k=0, max=0, counter=0, index=0;
@@ -250,16 +266,20 @@ namespace myproject{
             return word+" "+"love";
         }
 
-        static string replace(string word){
+        static string replace(string word)
+        {
             return word.Replace(word, "duck");
         }
-        static bool contains(string word){
+
+        static bool contains(string word)
+        {
             if(word.Contains("duck"))
                 return true;
             else return false;
         }
 
-        static string removeWhiteSpaces(string word){
+        static string removeWhiteSpaces(string word)
+        {
             string stringWithoutWhiteSpaces="";
             for(int i=0;i<word.Length;i++)
                 if(word[i]!=' ')
